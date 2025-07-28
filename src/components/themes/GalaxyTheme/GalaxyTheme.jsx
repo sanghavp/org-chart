@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 // import type { HierarchyNode } from "d3";
 import { galaxyTheme } from "../../../utils/node_theme.utils";
-import "./GalaxyTheme.css";
+// import "./GalaxyTheme.css";
 import * as d3 from "d3";
 import { useRef } from "react";
 import { OrgChart } from "d3-org-chart";

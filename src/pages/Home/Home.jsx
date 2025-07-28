@@ -1,15 +1,18 @@
-
-import { OvalTheme } from "../components/themes/OvalTheme/OvalTheme";
+import { OvalTheme } from "../../components/themes/OvalTheme/OvalTheme";
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { GalaxyTheme } from "../components/themes/GalaxyTheme/GalaxyTheme";
-import { SkyTheme } from "../components/themes/SkyTheme/SkyTheme";
+import { GalaxyTheme } from "../../components/themes/GalaxyTheme/GalaxyTheme";
+import { SkyTheme } from "../../components/themes/SkyTheme/SkyTheme";
+import { Modal } from "antd";
+
 // import { basicTheme } from '../utils/node_theme.utils';
 export default function Home() {
   const [data, setData] = useState();
   // let addNodeChildFunc = null;
-  
+
   const [chartTheme, setChartTheme] = useState("Oval");
+  const [modalState, setModalState] = useState({});
+  const [currentNode, setCurrentNode] = useState(null);
 
   // function addNode() {
   //   const node = {
@@ -20,9 +23,17 @@ export default function Home() {
   //   addNodeChildFunc(node);
   // }
 
-  function onNodeClick(nodeId) {
+  const handleModalStateChange = (name, state) => {
+    setModalState((prev) => ({
+      ...prev,
+      [name]: state,
+    }));
+  };
+
+  function onNodeClick(node) {
     // console.log('d3', d3.event);
-    alert("clicked " + nodeId);
+    handleModalStateChange("showDetailModal", true);
+    setCurrentNode(node);
   }
 
   useEffect(() => {
@@ -72,6 +83,21 @@ export default function Home() {
       <button onClick={() => setChartTheme("Galaxy")}>chọn galaxy</button>
       <button onClick={() => setChartTheme("Sky")}>chọn sky</button>
       {renderPage()}
+      <Modal
+        open={modalState.showDetailModal}
+        onCancel={() => handleModalStateChange("showDetailModal", false)}
+        onOk={() => handleModalStateChange("showDetailModal", false)}
+        title="Thông tin chi tiết"
+      >
+        <div>
+          <h3>Node ID: {currentNode?.id}</h3>
+          <p>Họ và tên: {currentNode?.data?.name}</p>
+          <p>Chức vụ: {currentNode?.data?.positionName}</p>
+          <p>Parent Node ID: {currentNode?.data?.parentId}</p>
+          <p>Số người con: {currentNode?.data?._directSubordinates}</p>
+          <p>Tổng các con cháu: {currentNode?.data?._totalSubordinates}</p>
+        </div>
+      </Modal>
     </div>
   );
 }

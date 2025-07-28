@@ -1,11 +1,11 @@
 import { useLayoutEffect } from "react";
-// import type { HierarchyNode } from "d3";
+// import * as d3 from "d3";
 import { ovalTheme } from "../../../utils/node_theme.utils";
 import { useRef } from "react";
 import { OrgChart } from "d3-org-chart";
 
 export const OvalTheme = (props) => {
-  const { data } = props;
+  const { data, onNodeClick } = props;
   const d3Container = useRef(null);
   const chartRef = useRef(new OrgChart());
 
@@ -31,6 +31,19 @@ export const OvalTheme = (props) => {
         .compactMarginBetween(() => 35)
         .compactMarginPair(() => 30)
         .neighbourMargin(() => 20)
+        .onNodeClick((d) => {
+          onNodeClick(d)
+          // props.onNodeClick(d3.event.target.dataset.nodeId);
+        })
+        // Khi mở node con
+        // .nodeEnter((d) => {
+        //   console.log( "d", d);
+        //   return `<div style="border-radius:3px;padding:3px;font-size:10px;margin:auto auto;background-color:${
+        //     d.data._color
+        //   }"> <span style="font-size:9px">${
+        //     d.children ? `<i class="fas fa-chevron-up"></i>` : `<i class="fas fa-chevron-down"></i>`
+        //   }</span> ${d.data._directSubordinates}  </div>`;
+        // })
         .buttonContent(({ node }) => {
           return `<div style="border-radius:3px;padding:3px;font-size:10px;margin:auto auto;background-color:lightgray"> <span style="font-size:9px">${
             node.children

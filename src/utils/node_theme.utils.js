@@ -31,7 +31,7 @@ export const ovalTheme = (d) => {
 }
 
 export const galaxyTheme = (d) => {
-  const svgStr = `<svg width=150 height=75  style="background-color:none"> <path d="M 0,15 L15,0 L135,0 L150,15 L150,60 L135,75 L15,75 L0,60" fill="#2599DD" stroke="#2599DD"/> </svg>`;
+  const svgStr = `<svg width=150 height=75 style="background-color:none"> <path d="M 0,15 L15,0 L135,0 L150,15 L150,60 L135,75 L15,75 L0,60" fill="#2599DD" stroke="#2599DD"/> </svg>`;
   return `
                           <div class="left-top" style="position:absolute;left:-10px;top:-10px">  ${svgStr}</div>
                           <div class="right-top" style="position:absolute;right:-10px;top:-10px">  ${svgStr}</div>
@@ -99,8 +99,8 @@ export const skyTheme = (d) => {
     } </div>
                </div> 
                <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
-                 <div > Manages:  ${d.data._directSubordinates} 👤</div>  
-                 <div > Oversees: ${d.data._totalSubordinates} 👤</div>    
+                 <div > Số người con:  ${d.data._directSubordinates} 👤</div>  
+                 <div > Đời sau: ${d.data._totalSubordinates} 👤</div>    
                </div>
               </div>     
       </div>
